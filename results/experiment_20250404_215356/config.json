@@ -1,0 +1,77 @@
+{
+    "general": {
+        "seed": 42,
+        "device": "cuda",
+        "log_dir": "logs",
+        "results_dir": "results"
+    },
+    "dataset": {
+        "name": "cifar10",
+        "batch_size": 128,
+        "num_workers": 4,
+        "data_dir": "data"
+    },
+    "model": {
+        "name": "resnet18",
+        "pretrained": false,
+        "checkpoint": null
+    },
+    "optimization": {
+        "compression": {
+            "enabled": true,
+            "method": "low_rank",
+            "weight_sharing": {
+                "n_clusters": 32,
+                "layers_to_skip": [
+                    "conv1",
+                    "fc"
+                ]
+            },
+            "low_rank": {
+                "rank_percent": 0.25,
+                "layers_to_skip": [
+                    "conv1",
+                    "fc"
+                ]
+            }
+        },
+        "pruning": {
+            "enabled": true,
+            "method": "magnitude",
+            "sparsity": 0.5,
+            "layers_to_skip": [
+                "conv1",
+                "fc"
+            ]
+        },
+        "distillation": {
+            "enabled": true,
+            "teacher_model": "resnet50",
+            "student_model": "resnet18",
+            "alpha": 0.5,
+            "temperature": 4.0,
+            "epochs": 100,
+            "lr": 0.01
+        },
+        "quantization": {
+            "enabled": true,
+            "method": "static",
+            "bit_width": 8,
+            "layers_to_skip": [
+                "conv1",
+                "fc"
+            ]
+        }
+    },
+    "evaluation": {
+        "batch_size": 128,
+        "metrics": [
+            "accuracy",
+            "inference_time",
+            "flops",
+            "size",
+            "parameters"
+        ],
+        "plot_results": true
+    }
+}

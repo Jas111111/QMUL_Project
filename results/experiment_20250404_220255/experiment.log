@@ -1,0 +1,35 @@
+2025-04-04 22:02:55,969 - dnn_optimization - INFO - Starting experiment at 2025-04-04 22:02:55
+2025-04-04 22:02:55,969 - dnn_optimization - INFO - Experiment configuration:
+2025-04-04 22:02:55,969 - dnn_optimization - INFO - general:
+2025-04-04 22:02:55,969 - dnn_optimization - INFO -   seed: 42
+2025-04-04 22:02:55,969 - dnn_optimization - INFO -   device: cuda
+2025-04-04 22:02:55,969 - dnn_optimization - INFO -   log_dir: logs
+2025-04-04 22:02:55,969 - dnn_optimization - INFO -   results_dir: results
+2025-04-04 22:02:55,969 - dnn_optimization - INFO - dataset:
+2025-04-04 22:02:55,969 - dnn_optimization - INFO -   name: cifar10
+2025-04-04 22:02:55,969 - dnn_optimization - INFO -   batch_size: 128
+2025-04-04 22:02:55,969 - dnn_optimization - INFO -   num_workers: 4
+2025-04-04 22:02:55,969 - dnn_optimization - INFO -   data_dir: data
+2025-04-04 22:02:55,969 - dnn_optimization - INFO - model:
+2025-04-04 22:02:55,969 - dnn_optimization - INFO -   name: resnet18
+2025-04-04 22:02:55,969 - dnn_optimization - INFO -   pretrained: False
+2025-04-04 22:02:55,969 - dnn_optimization - INFO -   checkpoint: None
+2025-04-04 22:02:55,970 - dnn_optimization - INFO - optimization:
+2025-04-04 22:02:55,970 - dnn_optimization - INFO -   compression: {'enabled': True, 'method': 'low_rank', 'weight_sharing': {'n_clusters': 32, 'layers_to_skip': ['conv1', 'fc']}, 'low_rank': {'rank_percent': 0.25, 'layers_to_skip': ['conv1', 'fc']}}
+2025-04-04 22:02:55,970 - dnn_optimization - INFO -   pruning: {'enabled': True, 'method': 'magnitude', 'sparsity': 0.5, 'layers_to_skip': ['conv1', 'fc']}
+2025-04-04 22:02:55,970 - dnn_optimization - INFO -   distillation: {'enabled': True, 'teacher_model': 'resnet50', 'student_model': 'resnet18', 'alpha': 0.5, 'temperature': 4.0, 'epochs': 100, 'lr': 0.01}
+2025-04-04 22:02:55,970 - dnn_optimization - INFO -   quantization: {'enabled': True, 'method': 'static', 'bit_width': 8, 'layers_to_skip': ['conv1', 'fc']}
+2025-04-04 22:02:55,970 - dnn_optimization - INFO - evaluation:
+2025-04-04 22:02:55,970 - dnn_optimization - INFO -   batch_size: 128
+2025-04-04 22:02:55,970 - dnn_optimization - INFO -   metrics: ['accuracy', 'inference_time', 'flops', 'size', 'parameters']
+2025-04-04 22:02:55,970 - dnn_optimization - INFO -   plot_results: True
+2025-04-04 22:02:55,980 - dnn_optimization - INFO - Configuration saved to results/experiment_20250404_220255/config.json
+2025-04-04 22:02:55,981 - dnn_optimization - INFO - Using device: cpu
+2025-04-04 22:02:55,981 - dnn_optimization - INFO - Loading dataset: cifar10
+2025-04-04 22:02:57,236 - dnn_optimization - INFO - Loading model: resnet18
+2025-04-04 22:02:57,354 - dnn_optimization - INFO - Evaluating original model
+2025-04-04 22:03:54,608 - dnn_optimization - INFO - Original model - Accuracy: 11.59%, Inference time: 386.52ms, FLOPs: 1823.53M, Size: 42.73MB, Parameters: 11,181,642
+2025-04-04 22:03:54,608 - dnn_optimization - INFO - Applying compression: low_rank
+2025-04-04 22:03:54,608 - dnn_optimization - INFO - Low-rank factorization with rank percent 0.25
+2025-04-04 22:03:55,146 - dnn_optimization - INFO - Low-rank model saved to results/experiment_20250404_220255/low_rank_resnet18.pth
+2025-04-04 22:03:55,146 - dnn_optimization - INFO - Applying pruning: magnitude with sparsity 0.5
