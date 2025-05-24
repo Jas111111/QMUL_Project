@@ -1,0 +1,67 @@
+general:
+  seed: 42
+  device: cuda
+  log_dir: logs
+  results_dir: results
+dataset:
+  name: cifar10
+  batch_size: 128
+  num_workers: 4
+  data_dir: data
+model:
+  name: resnet50
+  # name: mobilenet_v2
+  # name: efficientnet_b0
+  # pretrained: true
+  # checkpoint: /root/my-code/dnn_optimization/results/experiment_20250524_190227/mobilenet_v2_baseline.pth
+train:
+  epochs: 200
+  lr: 0.01
+optimization:
+  compression:
+    enabled: false
+    method: weight_sharing
+    weight_sharing:
+      n_clusters: 32
+      layers_to_skip:
+      - conv1
+      - fc
+    low_rank:
+      rank_percent: 0.25
+      layers_to_skip:
+      - conv1
+      - fc
+  pruning:
+    enabled: false
+    method: magnitude
+    sparsity: 0.5
+    epochs: 100
+    lr: 0.001
+    layers_to_skip:
+    - conv1
+    - fc
+  distillation:
+    enabled: false
+    teacher_model: resnet50
+    teacher_model_checkpoint: /path/to/teacher/model
+    student_model: resnet18
+    alpha: 0.5
+    temperature: 4.0
+    epochs: 50
+    lr: 0.01
+  quantization:
+    enabled: true
+    method: static
+    bit_width: 8
+    layers_to_skip:
+    - conv1
+    - fc
+evaluation:
+  batch_size: 128
+  metrics:
+  - accuracy
+  - inference_time
+  - flops
+  - size
+  - parameters
+  plot_results: true
