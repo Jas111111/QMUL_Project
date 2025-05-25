@@ -2,6 +2,7 @@
 
 This project implements various techniques for optimizing deep neural networks to improve inference speed and reduce model size while maintaining accuracy. The techniques include network compression, model pruning, knowledge distillation, and quantization.
 
+all the result plot are saved as modelname folder
 ## Project Structure
 
 ```
@@ -61,7 +62,7 @@ python main.py --config config.yaml
 Run the main script with cli arguments:
 
 ```bash
-python main.py --config config.yaml model.name resnet18 dataset.name cifar10 optimization.pruning.enabled=True
+python main.py --config config.yaml model.name=resnet18 dataset.name=cifar10 optimization.pruning.enable=True
 ```
 all arguments specified in the configuration file and cli arguments will be merged.
 
